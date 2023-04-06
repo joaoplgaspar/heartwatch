@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codigo HeartWatch</title>
+</head>
+<body>
+    <pre>
+      #include Adafruit_NeoPixel.h
+      #include SoftwareSerial.h   
+      SoftwareSerial mySerial(11, 10);
+      
+      #define PIN 6
+      byte R, G, B;
+      Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, PIN, NEO_GRB + NEO_KHZ800);
+      
+      int pulsePin = 0;           
+      int i, a, limite;
+      int condicao = 1; /* || 1 = Repouso/Atividade - Homem || 2 = Repouso/Atividade - Mulher || 3 = Ciclismo || 4 = Corrida || 5 = Outros || 6 = Infarto || 7 = Obesidade || 8 = Taquicardia || 9 = Taquicardia Sinusal || 10 = Bradicardia ||*/
+      int idade = 19;
+      
+      char telefone[30] = "+5511XXXXXXXXX";
+      char mensagem[30] = "Urgente! Seu contato de emergencia pode estar tendo um ataque cardiaco!";
+      
+      volatile int BPM;                   
+      volatile int Signal;                
+      volatile int IBI = 600;             
+      volatile boolean Pulse = false;     
+      volatile boolean QS = false;       
+      
+      static boolean serialVisual = true;   
+      
+      volatile int rate[10];                      
+      volatile unsigned long sampleCounter = 0;          
+      volatile unsigned long lastBeatTime = 0;           
+      volatile int P = 512;                      
+      volatile int T = 512;                     
+      volatile int thresh = 525;                
+      volatile int amp = 100;                   
+      volatile boolean firstBeat = true;        
+      volatile boolean secondBeat = false;      
+      
+      void setup()
+      {
+        Serial.begin(9600);
+        mySerial.begin(9600);
+        
+        Serial.begin(115200);             
+        interruptSetup();                      
+      }
+      
+      
+      void loop()
+      {
+          serialOutput();  
+          
+        if (QS == true)
+          {     
+            serialOutputWhenBeatHappens();
+            QS = false; 
+          }
+      
+          if(BPM<=40){ 
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+              for(i=1; i<=1; i++){
+                strip.setPixelColor(i, 0, 127, 255);}
+          }else if(BPM<=50){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+              for(i=1; i<=2; i++){
+                strip.setPixelColor(i, 0, 127, 255);}
+          }else if(BPM<=60){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=3; i++)
+              strip.setPixelColor(i, 0, 104, 255);
+          }else if(BPM<=70){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=4; i++)
+              strip.setPixelColor(i, 0, 81, 255);
+          }else if(BPM<=80){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=5; i++)
+              strip.setPixelColor(i, 0, 153, 138);
+          }else if(BPM<=90){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=6; i++)
+              strip.setPixelColor(i, 0, 172, 104);
+          }else if(BPM<=100){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=7; i++)
+              strip.setPixelColor(i, 0, 181, 91);
+          }else if(BPM<=110){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=8; i++)
+              strip.setPixelColor(i, 0, 181, 52);
+          }else if(BPM<=120){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=9; i++)
+              strip.setPixelColor(i, 180, 0, 55);
+          }else if(BPM<=130){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=10; i++)
+              strip.setPixelColor(i, 195, 0, 38);
+          }else if(BPM<=140){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=11; i++)
+              strip.setPixelColor(i, 208, 0, 38);
+          }else if(BPM<=150){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=12; i++)
+              strip.setPixelColor(i, 208, 0, 28);
+          }else if(BPM<=160){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=13; i++)
+              strip.setPixelColor(i, 219, 0, 28);
+          }else if(BPM<=170){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=14; i++)
+              strip.setPixelColor(i, 226, 0, 28);
+          }else if(BPM<=180){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=15; i++)
+              strip.setPixelColor(i, 226, 0, 19);
+          }else if(BPM<=190 || BPM>190){
+              for(i=1; i<=16; i++){
+                strip.setPixelColor(i, 0, 0, 0);}
+            for(i=1; i<=16; i++)
+              strip.setPixelColor(i, 255, 0, 0);
+          }
+          
+          strip.begin(); 
+          strip.show();
+        
+          if(condicao == 1){
+            limite = 220 - idade;
+            if(BPM>limite){
+              for(i=1; i<=16; i++){
+                for(a=1; a<=16; a++){
+                  strip.setPixelColor(i, 0, 0, 0);}
+              strip.setPixelColor(i, 255, 0, 0);
+            }
+            strip.begin(); 
+            strip.show();    
+            delay(500);
+                
+              for(i=1; i<=13; i++){
+                  strip.setPixelColor(i, 0, 0, 0);
+              }
+                  
+            strip.begin(); 
+            strip.show();
+            delay(500);
+            } 
+          } else if(condicao == 2){
+            limite = 220 - idade;
+            if(BPM>limite){
+              for(i=1; i<=16; i++){
+                for(a=1; a<=16; a++){
+                  strip.setPixelColor(i, 0, 0, 0);}
+              strip.setPixelColor(i, 255, 0, 0);
+                }
+            strip.begin(); 
+            strip.show();      
+            delay(2000);
+                
+              for(i=1; i<=13; i++){
+                  strip.setPixelColor(i, 0, 0, 0);
+              }
+                  
+            strip.begin(); 
+            strip.show();
+            delay(500);
+            }
+        } else if(condicao == 3){
+            limite = 220 - idade;
+            if(BPM>limite){
+                for(i=1; i<=16; i++){
+                    for(a=1; a<=16; a++){
+                        strip.setPixelColor(i, 0, 0, 0);}
+                strip.setPixelColor(i, 255, 0, 0);
+                }
+                strip.begin(); 
+                strip.show();
+                  
+                delay(2000);
+                
+                for(i=1; i<=13; i++){
+                    strip.setPixelColor(i, 0, 0, 0);
+                }
+                  
+                strip.begin(); 
+                strip.show();
+                delay(500);
+            }
+        } else if(condicao == 4){
+            limite = 220 - idade;
+            if(BPM>limite){
+                for(i=1; i<=16; i++){
+                    for(a=1; a<=16; a++){
+                        strip.setPixelColor(i, 0, 0, 0);}
+                strip.setPixelColor(i, 255, 0, 0);
+                }
+                strip.begin(); 
+                strip.show();
+                  
+                delay(2000);
+                
+                for(i=1; i<=13; i++){
+                    strip.setPixelColor(i, 0, 0, 0);
+                }
+                  
+                strip.begin(); 
+                strip.show();
+                delay(500);
+            }
+        }else if(condicao == 5){
+            limite = 220 - idade;
+            if(BPM>limite){
+                for(i=1; i<=16; i++){
+                    for(a=1; a<=16; a++){
+                        strip.setPixelColor(i, 0, 0, 0);}
+                strip.setPixelColor(i, 255, 0, 0);
+                }
+                strip.begin(); 
+                strip.show();
+                  
+                delay(2000);
+                
+                for(i=1; i<=13; i++){
+                    strip.setPixelColor(i, 0, 0, 0);
+                }
+                  
+                strip.begin(); 
+                strip.show();
+                delay(500);
+            }
+      
+        } else if(condicao == 6){
+            if(BPM>180){
+                if(BPM>limite){
+                    for(i=1; i<=16; i++){
+                        for(a=1; a<=16; a++){
+                            strip.setPixelColor(i, 0, 0, 0);}
+                    strip.setPixelColor(i, 255, 0, 0);
+                    }
+                    strip.begin(); 
+                    strip.show();
+                      
+                    delay(2000);
+                    
+                    for(i=1; i<=13; i++){
+                        strip.setPixelColor(i, 0, 0, 0);
+                    }
+                      
+                    strip.begin(); 
+                    strip.show();
+                    delay(500);
+                }
+            }
+        } else if(condicao == 7){
+            limite = 220 - idade;
+            if(BPM>limite){
+                for(i=1; i<=16; i++){
+                    for(a=1; a<=16; a++){
+                        strip.setPixelColor(i, 0, 0, 0);}
+                strip.setPixelColor(i, 255, 0, 0);
+                }
+                strip.begin(); 
+                strip.show();
+                  
+                delay(2000);
+                
+                for(i=1; i<=13; i++){
+                    strip.setPixelColor(i, 0, 0, 0);
+                }
+                  
+                strip.begin(); 
+                strip.show();
+                delay(500);
+            }
+            
+        } else if(condicao == 8){
+            if(BPM>100){
+                for(i=1; i<=7; i++){
+                    for(a=1; a<=16; a++){
+                        strip.setPixelColor(i, 0, 0, 0);}
+                strip.setPixelColor(i, 255, 0, 0);
+                }
+                strip.begin(); 
+                strip.show();
+                  
+                delay(2000);
+                
+                for(i=1; i<=13; i++){
+                    strip.setPixelColor(i, 0, 0, 0);
+                }
+                  
+                strip.begin(); 
+                strip.show();
+                delay(500);
+            }
+        } else if(condicao == 9){
+            if(BPM>=100 && BPM<=140){
+                for(i=1; i<=11; i++){
+                    for(a=1; a<=16; a++){
+                        strip.setPixelColor(i, 0, 0, 0);}
+                strip.setPixelColor(i, 255, 0, 0);
+                }
+                strip.begin(); 
+                strip.show();
+                  
+                delay(2000);
+                
+                for(i=1; i<=13; i++){
+                    strip.setPixelColor(i, 0, 0, 0);
+                }
+                  
+                strip.begin(); 
+                strip.show();
+                delay(500);
+            }
+            
+        } else if(condicao == 10){
+              if(BPM<60){
+                  for(i=1; i<=16; i++){
+                      strip.setPixelColor(i, 255, 0, 0);
+                    }
+                  strip.begin(); 
+                  strip.show();
+                  delay(500);
+      
+                    for(i=1; i<=16; i++){
+                        strip.setPixelColor(i, 0, 0, 0);
+                    }
+      
+                  strip.begin(); 
+                  strip.show();
+                  delay(500);
+              }
+          }
+      
+        if(BPM > limite){
+          delay(10000);
+      
+          if(BPM > limite){
+            delay(10000);
+            if(BPM > limite){
+              delay(10000);
+              if(BPM > limite){
+                EnviaSMS(telefone, mensagem);
+              }
+            }
+          }
+        }
+        delay(20);
+      }
+      
+      
+      void interruptSetup()
+      {     
+        
+        TCCR2A = 0x02;     
+        TCCR2B = 0x06;     
+        OCR2A = 0X7C;      
+        TIMSK2 = 0x02;     
+        sei();                 
+      } 
+      
+      void serialOutput()
+      {   
+        if (serialVisual == true)
+        {  
+            arduinoSerialMonitorVisual('-', Signal);   
+        } 
+        else
+        {
+            sendDataToSerial('S', Signal);     
+          }        
+      }
+      
+      void serialOutputWhenBeatHappens()
+      {    
+        if (serialVisual == true) 
+          {            
+            Serial.print(" Heart-Beat Found ");  
+            Serial.print("BPM: ");
+            Serial.println(BPM);
+          }
+        else
+          {
+            sendDataToSerial('B',BPM);   
+            sendDataToSerial('Q',IBI);   
+          }   
+      }
+      
+      void arduinoSerialMonitorVisual(char symbol, int data )
+      {    
+        const int sensorMin = 0;      
+        const int sensorMax = 1024;    
+        int sensorReading = data; 
+        int range = map(sensorReading, sensorMin, sensorMax, 0, 11);
+      }
+      
+      void EnviaSMS(String telefone, String mensagem){              
+        mySerial.println("AT+CMGF=1");
+        delay(100);                                    
+        mySerial.println("AT+CMGS=\"" + telefone + "\"");  
+        delay(100);                                    
+        mySerial.print(mensagem);   
+        delay(500);                                    
+        mySerial.print(char(30));                      
+        delay(100);                                    
+        mySerial.println("");                          
+        delay(100);                                    
+      }
+      
+      void sendDataToSerial(char symbol, int data )
+      {
+          Serial.print(symbol);
+          Serial.println(data);                
+      }
+      
+      ISR(TIMER2_COMPA_vect) 
+      {  
+        cli();                                      
+        Signal = analogRead(pulsePin);              
+        sampleCounter += 2;                         
+        int N = sampleCounter - lastBeatTime;       
+                                                    
+        if(Signal < thresh && N > (IBI/5)*3)
+          {      
+            if (Signal < T)
+            {                        
+              T = Signal; 
+            }
+          }
+      
+        if(Signal > thresh && Signal > P)
+          {          
+            P = Signal;                             
+          }                                        
+      
+        if (N > 250)
+        {                                   
+          if ( (Signal > thresh) && (Pulse == false) && (N > (IBI/5)*3) )
+            {        
+              Pulse = true;                               
+              IBI = sampleCounter - lastBeatTime;     
+              lastBeatTime = sampleCounter;              
+        
+              if(secondBeat)
+              {                        
+                secondBeat = false;                  
+                for(int i=0; i<=9; i++)
+                {             
+                  rate[i] = IBI;                      
+                }
+              }
+        
+              if(firstBeat) 
+              {                         
+                firstBeat = false;                   
+                secondBeat = true;                   
+                sei();                               
+                return;                              
+              }   
+            
+            word runningTotal = 0;                    
+      
+            for(int i=0; i<=8; i++)
+              {                
+                rate[i] = rate[i+1];                  
+                runningTotal += rate[i];             
+              }
+      
+            rate[9] = IBI;                          
+            runningTotal += rate[9];                
+            runningTotal /= 10;                     
+            BPM = 60000/runningTotal;               
+            QS = true;                             
+          }                       
+        }
+      
+        if (Signal < thresh && Pulse == true)
+          {   
+            Pulse = false;                         
+            amp = P - T;                           
+            thresh = amp/2 + T;                    
+            P = thresh;                          
+            T = thresh;
+          }
+      
+        if (N > 2500)
+          {                           
+            thresh = 512;                         
+            P = 512;                               
+            T = 512;                               
+            lastBeatTime = sampleCounter;                 
+            firstBeat = true;                      
+            secondBeat = false;                    
+          }
+      
+        sei();
+      }
+    </pre>
+</body>
+</html>

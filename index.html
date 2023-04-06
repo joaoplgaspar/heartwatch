@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeartWatch</title>
+    <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header id="header">
+        <!--Menu Mobile-->
+        <input id="toggle" type="checkbox">
+
+        <label class="toggle-container" for="toggle">
+            
+            <span class="button button-toggle"></span>
+        </label>
+
+        <nav class="nav">
+            <a class="nav-item" href="#objetivo">Objetivo</a>
+            <a class="nav-item" href="#publico">Público</a>
+            <a class="nav-item" href="#equipamento">Equipamento</a>
+            <a class="nav-item" href="#funcionamento">Funcionamento</a>
+            <a class="nav-item" href="#diferenciais">Diferenciais</a>
+            <a class="nav-item" href="#batimento-ideal">Confira seu batimento ideal</a>
+            <a class="nav-item" href="#lista_futuro">Informações</a>
+            <a class="nav-item" href="#problemas">Problemas enfrentados</a>
+        </nav>
+
+
+        <section class="top-header">
+            <figure class="logo">
+                <img src="./assets/images/logo.png" alt="logo heartwatch">
+            </figure>
+
+            <div class="content">
+                <h1>HeartWatch</h1>
+                <p>Um relógio inovador que irá facilitar com suas funções e design único, medindo e analisando seus batimentos cardíacos, com diversas ferramentas de segurança, como o chamado de socorro automático, para pessoas com problemas cardiovasculares.</p>
+            </div>
+        </section>
+
+        <section class="header-card">
+            <div id="objetivo" class="card card-objetivo">
+                <div class="content">
+                    <div class="icon-title">
+                        <figure>
+                            <img src="./assets/images/icon_objetivo_enable.png" alt="">
+                        </figure>
+                        <h2>Objetivos</h2>
+                    </div>
+                    <p>Ajudar os consumidores a terem uma vida saudavel juntamente com o beneficio de tecnologias atuais. </p>
+                    <button onclick="infoDisplay(1)">Saiba Mais</button>
+                </div>
+            </div>
+            <div id="publico" class="card card-publico">
+                <div class="content">
+                    <div class="icon-title">
+                        <figure>
+                            <img src="./assets/images/icon_publico_disable.png" alt="">
+                        </figure>
+                        <h2>Publico alvo</h2>
+                    </div>
+                    <p>Pessoas que possuem historico de doenças Cardiovasculares e praticantes de esportes.</p>
+                    <button onclick="infoDisplay(2)">Saiba Mais</button>
+                </div>
+            </div>
+            <div id="equipamento" class="card card-equipamento">
+                <div class="content">
+                    <div class="icon-title">
+                        <figure>
+                            <img src="./assets/images/icon_bibliografia_disable.png" alt="">
+                        </figure>
+                        <h2>Equipamento</h2>
+                    </div>
+                    <p>Conheça os diversos equipamentos e componentes que usamos e usaremos para a construção do HeartWatch</p>
+                    <button onclick="infoDisplay(3)">Saiba Mais</button>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <main>
+        <!--INFO MOBILE-->
+        <section class="info-plus-card_mobile">
+            <div class="info info-objetivo">
+                <div class="title-icon">
+                    <h2>Objetivos do trabalho</h2>
+                    <figure>
+                        <img src="./assets/images/mobile/alvo.png" alt="imagem alvo">
+                    </figure>
+                </div>
+                <p>Ajudar os usuarios de uma nova maneira, em que seu design será eficiente em medir o BPM em tempo real sendo claro para todo o público-alvo. Por meio do medidor de batimento cardiaco podemos indetificar problemas cardiovasculares e assim trazer um relatorio pronto para o consumidor, e caso esteja em atividade, o relogio prontamente enviara uma mensagem de alerta para um contato em que o usuario escolher, facilitando assim situações de emergencias.</p>
+            </div>
+            <div class="info info-publico">
+                <div class="title-icon">
+                    <h2>Público Alvo</h2>
+                    <figure>
+                        <img src="./assets/images/mobile/publico.png" alt="imagem alvo">
+                    </figure>
+                </div>
+                <p>Designado aos usuarios utilizarem durante exercicios/atividades como corrida, ciclismo, natação, etc... E para aqueles que possuem algum problema cardiaco como arritimia, bradicardia, fibrilação atrial, infarto, doença coronariana, doença reumática poderam diagnosticar tal doença de uma nova maneira, em que seu design será eficiente em medir o BPM em tempo real sendo claro para todo o público-alvo. Por meio do medidor de batimento cardiaco podemos indetificar problemas cardiovasculares e assim trazer um relatorio pronto para o consumidor, e caso esteja em atividade, o relogio prontamente enviara uma mensagem de alerta para um contato em que o usuario escolher, facilitando assim situações de emergencias. </p>
+            </div>
+            <div class="info info-equipamento">
+                <div class="title-icon">
+                    <h2>Equipamentos utilizados</h2>
+                    <figure>
+                        <img src="./assets/images/mobile/equipamento.png" alt="imagem alvo">
+                    </figure>
+                </div>
+                <section class="component-text-img">
+                    <h3>Placa Nano V3</h3>
+                    <figure>
+                        <img src="./assets/images/placananov3.png" alt="Placa nano arduino v3">
+                    </figure>
+                    <p>A placa Nano V3 é uma pequena versão das placas da tecnologia Arduino, parecida com o Arduino UNO pois também possui um chip ATMega328, porém na versão SMD. Nós escolhemos essa placa por causa de seu tamanho compacto que facilita a montagem e estética do relógio.</p>
+                    <p class="preco">R$89,90</p>
+                </section>
+                <section class="component-text-img">
+                    <h3>Sensor de Frequência Cardíaca</h3>
+                    <figure>
+                        <img src="./assets/images/sensorcardiaco.jpg" alt="Sensor de Frequência Cardíaca">
+                    </figure>
+                    <p>O sensor de pulso monitor cardíaco efetua a leitura das batidas do coração usando um sensor óptico amplificado, e envia esses dados para o microcontrolador como o Arduino através de um único pino de sinal.</p>
+                    <p class="preco">R$62,90</p>
+                </section>
+                <section class="component-text-img">
+                    <h3>Anel de LED RGB x16 WS2812 5050</h3>
+                    <figure>
+                        <img src="./assets/images/anelled.jpg" alt="Anel de LED RGB x16">
+                    </figure>
+                    <p>Anel de led, composto por 16 leds RGB. Utilizado para a medição dos batimentos cardíacos.</p>
+                    <p class="preco">R$46,90</p>
+                </section>
+                <section class="component-text-img">
+                    <h3>Módulo GSM GPRS SIM800L</h3>
+                    <figure>
+                        <img src="./assets/images/modulogsm.webp" alt="Módulo GSM GPRS SIM800L">
+                    </figure>
+                    <p>Módulo que será utilizado para enviar mensagens de analise para o dono do relógio e em casos de urgência ele enviará uma mensagem para o contato de emergência salvo previamente pelo usuário, alertando e ganhando tempo para o socorro. Isso é possível através de comandos AT que é configurado a rede GPRS, envio e recebimento de SMS e chamadas através de um cartão SIM, assim, possibilitando o envio de dados a longa distância.</p>
+                    <p class="preco">R$76,32</p>
+                </section>
+                <section class="component-text-img">
+                    <h3>Bateria Lipo 3.7v 200mah</h3>
+                    <figure>
+                        <img src="./assets/images/baterialipo.webp" alt="Bateria Libo 3.7v 200mah">
+                    </figure>
+                    <p>Fonte de energia que vai ser utilizada.</p>
+                    <p class="preco">R$15</p>
+                </section>
+            </div>
+        </section>
+
+        <!--INFO DESKTOP-->
+        <section class="info-plus-card_desktop">
+            <div class="info info-objetivoD">
+                <h2>Objetivos do trabalho</h2>
+                <div class="text">
+                    <p>Ajudar os usuarios de uma nova maneira, em que seu design será eficiente em medir o BPM em tempo real sendo claro para todo o público-alvo. Por meio do medidor de batimento cardiaco podemos indetificar problemas cardiovasculares e assim trazer um relatorio pronto para o consumidor, e caso esteja em atividade, o relogio prontamente enviara uma mensagem de alerta para um contato em que o usuario escolher, facilitando assim situações de emergencias.</p>
+
+                    <figure>
+                        <img src="./assets/images/Desktop/alvo_desktop.png" alt="imagem alvo">
+                    </figure>
+                </div>
+            </div>
+            <div class="info info-publicoD">
+                <h2>Público Alvo</h2>
+                <div class="text">
+                    <p>Designado aos usuarios utilizarem durante exercicios/atividades como corrida, ciclismo, natação, etc... E para aqueles que possuem algum problema cardiaco como arritimia, bradicardia, fibrilação atrial, infarto, doença coronariana, doença reumática poderam diagnosticar tal doença de uma nova maneira, em que seu design será eficiente em medir o BPM em tempo real sendo claro para todo o público-alvo. Por meio do medidor de batimento cardiaco podemos indetificar problemas cardiovasculares e assim trazer um relatorio pronto para o consumidor, e caso esteja em atividade, o relogio prontamente enviara uma mensagem de alerta para um contato em que o usuario escolher, facilitando assim situações de emergencias. </p>
+                    <figure>
+                        <img src="./assets/images/mobile/publico.png" alt="imagem alvo">
+                    </figure>
+                </div>
+            </div>
+            <div class="info info-equipamentoD">
+                <div class="title-icon">
+                    <h2>Equipamentos utilizados</h2>
+                    <figure>
+                        <img src="./assets/images/mobile/equipamento.png" alt="imagem alvo">
+                    </figure>
+                </div>
+                <section class="component-text-img">
+                    <h3>Placa Nano V3</h3>
+                    <div class="grid-text-img">
+                        <figure>
+                            <img src="./assets/images/placananov3.png" alt="Placa nano arduino v3">
+                        </figure>
+                        <div class="text-img">
+                            <p>A placa Nano V3 é uma pequena versão das placas da tecnologia Arduino, parecida com o Arduino UNO pois também possui um chip ATMega328, porém na versão SMD. Nós escolhemos essa placa por causa de seu tamanho compacto que facilita a montagem e estética do relógio.</p>
+                            <p class="preco">R$89,90</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="component-text-img">
+                    <h3>Sensor de Frequência Cardíaca</h3>
+                    <div class="grid-text-img">
+                        <div class="text-img">
+                            <p>O sensor de pulso monitor cardíaco efetua a leitura das batidas do coração usando um sensor óptico amplificado, e envia esses dados para o microcontrolador como o Arduino através de um único pino de sinal.</p>
+                            <p class="preco">R$62,90</p>
+                        </div>
+                        <figure>
+                            <img src="./assets/images/sensorcardiaco.jpg" alt="Sensor de Frequência Cardíaca">
+                        </figure>
+                    </div>
+                </section>
+                <section class="component-text-img">
+                    <h3>Anel de LED RGB x16 WS2812 5050</h3>
+                    <div class="grid-text-img">
+                        <figure>
+                            <img src="./assets/images/anelled.jpg" alt="Anel de LED RGB x16">
+                        </figure>
+                        <div class="text-img">
+                            <p>Anel de led, composto por 16 leds RGB. Utilizado para a medição dos batimentos cardíacos.</p>
+                            <p class="preco">R$46,90</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="component-text-img">
+                    <h3>Módulo GSM GPRS SIM800L</h3>
+                    <div class="grid-text-img">
+                        <div class="text-img">
+                            <p>Módulo que será utilizado para enviar mensagens de analise para o dono do relógio e em casos de urgência ele enviará uma mensagem para o contato de emergência salvo previamente pelo usuário, alertando e ganhando tempo para o socorro. Isso é possível através de comandos AT que é configurado a rede GPRS, envio e recebimento de SMS e chamadas através de um cartão SIM, assim, possibilitando o envio de dados a longa distância.</p>
+                            <p class="preco">R$76,32</p>
+                        </div>
+                        <figure>
+                            <img src="./assets/images/modulogsm.webp" alt="Módulo GSM GPRS SIM800L">
+                        </figure>
+                    </div>
+                </section>
+            </div>
+        </section>
+        
+        <section id="funcionamento" class="section-funcionamento">
+            <h2>Funcionamento</h2>
+            <p>Tabela de bpm a cada led (+10bpm)</p>
+            <div class="grid-funcionamento">
+                <a href="./assets/pagesHtml/codigo.html">
+                <figure href="">
+                    <img src="./assets/images/funcionamento.png" alt="">
+                </figure></a>
+                <p>Quando a frequência cardíaca atingir áreas de risco (marcações em vermelho) definidos pelo perfil do usuário, o dispositivo irá tomar as medidas de segurança de acordo com as configurações. Primeiramente alertando o próprio utilizador, com informações visuais e mensagens de alerta enviadas pelo modulo GSM. Caso o perfil do usuário seja de alto risco, após um determinado período na zona de risco (bpm muito alto ou baixo) o HeartWatch enviará uma mensagem para o contato de emergência configurado previamente, podendo ser para uma pessoa de confiança ou até mesmo os paramédicos. Desse modo, a ação contra um ataque cardíaco é feita de maneira mais rápida e efetiva.</p>
+            </div>
+
+            <h3>Definições do relógio</h3>
+            <p>Perfil: Homem saudável com 60 anos</p>
+            <div class="gifs">
+                <div>
+                    <img src="./assets/images/Repouso (60 e 70bpm).gif" alt="Gif em repouso">
+                    <p>Em repouso, entre 60 e 70bpm</p>
+                </div>
+                <div>
+                    <img src="./assets/images/Máximo em atividade.gif" alt="Gif em maximo de atividade">
+                    <p>No máximo da atividade que o perfil aceita, entre 150 e 160bpm</p>
+                </div>
+                <div>
+                    <img src="./assets/images/Ultrapassa o limite de em atividade.gif" alt="Gif ultrapassa o limite">
+                    <p>Quando ultrapassa o limite de bpm, nesse caso, maior que 160bpm</p>
+                </div>
+            </div>
+
+            <h3>Envio de SMS</h3>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/6ceZLQ__cmQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </section>
+
+        <section id="diferenciais" class="section-diferenciais">
+            <h2>Diferenciais</h2>
+            <div class="container-cards">
+                <div class="cards">
+                    <figure>
+                        <img src="./assets/images/relogio-diferenciais.png" alt="">
+                    </figure>
+                    <p>Medimos seu batimento cardiaco em tempo real, com o auxilio dos nossos LEDs que mudaram de cor de acordo com o seu BPM.</p>
+                </div>
+                <div class="cards">
+                    <figure>
+                        <img src="./assets/images/frequencia-diferenciais.png" alt="">
+                    </figure>
+                    <p>Notificação de frequência cardíaca alta e baixa, e irregular. De acordo com sua saúde e idade.</p>
+                </div>
+                <div class="cards">
+                    <figure>
+                        <img src="./assets/images/informacao-diferenciais.png" alt="">
+                    </figure>
+                    <p>Mensagens de texto serão enviadas para pessoas escolhidas pelo usuario, em caso de alterações no ritmo cardiaco.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="batimento-ideal" class="section-batimento">
+            <h2>Veja seu batimento ideal!</h2>
+            <form action="">
+                <div class="container-condicao">
+                    <label for="select">Selecione uma condição</label>
+                    <select id="select" name="select">
+                        <option value="Homem em repouso e atividade">Repouso/Atividade - Homem</option>
+                        <option value="Mulher em repouso e atividade">Repouso/Atividade - Mulher</option>
+                        <option value="ciclismo" selected>Em atividade - Ciclismo</option>
+                        <option value="corrida">Em atividade - Corrida</option>
+                        <option value="natacao">Em atividade - Natação</option>
+                        <option value="outros exercicios">Em atividade - Outros</option>
+                        <option value="infarto">Doenças - Infarto</option>
+                        <option value="obesidade">Doenças - Obesidade</option> <!--220 - idade MAXIMO-->
+                        <option value="taquicardia">Doenças - Taquicardia</option> <!--Maximo de 100 bpm em repouso-->
+                        <option value="taquicardia sinusal">Doenças - Taquicardia Sinusal</option> <!--entre os 100 e 140 bpm-->
+                        <option value="bradicardia">Doenças - Bradicardia</option> <!--Menos de 60bpm-->
+                    </select>
+                </div>
+                
+                <div class="container-idade">
+                    <label for="idade">Digite sua idade:</label>
+                    <input id="idade" type="number" name="idade">
+                </div>
+            </form>
+
+            <button onclick="calcularBatimento()">Calcular</button>
+
+            <div class="resultado">
+                <h3></h3>
+                <p></p>
+                <p class="text-adc"></p>
+            </div>
+
+            <div class="heart-container"><i class="fa fa-heart heart"></i></div>
+        </section>
+
+        <section id="lista_futuro" class="section-lista_futuro">
+            <h2>Informações</h2>
+
+            <div class="table-iframe">
+                <table border="1">
+                    <tr>
+                        <td><strong>Componente</strong></td>
+                        <td><strong>Versão Atual</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="componente">Arduino Nano R3</td>
+                        <td>&#10003</td>
+                    </tr>
+                    <tr>
+                        <td class="componente">Medição cardíaca</td>
+                        <td>&#10003</td>
+                    </tr>
+                    <tr>
+                        <td class="componente">Anel de led configurado com os batimentos</td>
+                        <td>&#10003</td>
+                    </tr>
+                    <tr>
+                        <td class="componente"><a href="./assets/pagesHtml/codigo.html">Dados de condições integrado no Arduino</a></td>
+                        <td>&#10003</td>
+                    </tr>
+                    <tr>
+                        <td class="componente">Alertas visuais de variações conforme seu perfil</td>
+                        <td>&#10003</td>
+                    </tr>
+                    <tr>
+                        <td class="componente">Modulo GSM (Conexão com internet)</td>
+                        <td>&#10003</td>
+                    </tr>
+                </table>
+
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/Yhqdlp1t9XQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p>Acesse o código completo clicando <a href="./assets/pagesHtml/codigo.html">aqui</a></p>
+            <p>Acesse a bibliográfia clicando <a href="./assets/pagesHtml/bibliografia.html">aqui</a></p>
+        </section>
+
+        <section id="problemas" class="section-problemas">
+            <h2>Problemas enfrentados</h2>
+
+            <div class="problemas-img">
+                    <ul>
+                    <li>Fragilidade e instabilidade do sensor de frequência cardíaca</li>
+                    <li>Compactar o projeto em um relógio</li>
+                    <li>Conexão do módulo GSM com o chip (Antena)</li>
+                    <li>Fonte externa para o módulo GSM (3.7v a 4.2v)</li>
+                    <li>Falta dos componentes em simuladores (Tinkercad)</li>
+                </ul>
+
+                <img src="./assets/images/problemas.png" alt="Icone pessoa com problemas">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <figure>
+            <a href="#header"><img src="./assets/images/logo.png" alt="logo heartwatch"></a>
+        </figure>
+        <div>
+            <p>Desenvolvido por: João Pedro Gaspar, Juliard Martins e Nathan Kevyn</p>
+        </div>
+        <p>Todos os direitos reservados © HeartWatch 2022</p>
+    </footer>
+</body>
+<script src="./assets/script/script.js"></script>
+</html>
